@@ -7,7 +7,7 @@ import { HeaderComponent } from './header/header.component';
 import { ContainerComponent } from './container/container.component';
 import { FooterComponent } from './footer/footer.component';
 import { AppRoutingModule } from './app-routing.module';
-import { PostArticleComponent } from './post-article/post-article.component';
+import { ArticlePostComponent } from './article-post/article-post.component';
 import { ArticleListComponent } from './article-list/article-list.component';
 
 @NgModule({
@@ -16,7 +16,7 @@ import { ArticleListComponent } from './article-list/article-list.component';
     HeaderComponent,
     ContainerComponent,
     FooterComponent,
-    PostArticleComponent,
+    ArticlePostComponent,
     ArticleListComponent
   ],
   imports: [

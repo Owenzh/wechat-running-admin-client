@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { PostArticleComponent } from './post-article/post-article.component';
+import { ArticlePostComponent } from './article-post/article-post.component';
 import { ArticleListComponent } from './article-list/article-list.component';
 const routes: Routes = [
-  { path: 'article', component: PostArticleComponent },
+  { path: 'article_post', component: ArticlePostComponent },
   { path: 'article_list', component: ArticleListComponent }
 ];
 @NgModule({
