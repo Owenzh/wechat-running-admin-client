@@ -1,4 +1,7 @@
-.app{
-    text-align: center;
-    font-size: 1.6rem; 
+.app {
+    display: block;
+    margin: 0 auto;
+    width: 800px;
+    font-size: 1.6rem;
+    text-align: left;
 }
