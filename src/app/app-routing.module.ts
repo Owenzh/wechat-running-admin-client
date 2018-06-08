@@ -7,6 +7,10 @@ const routes: Routes = [
   { path: 'article_list', component: ArticleListComponent }
 ];
 @NgModule({
+  declarations: [
+    ArticlePostComponent,
+    ArticleListComponent
+  ],
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
