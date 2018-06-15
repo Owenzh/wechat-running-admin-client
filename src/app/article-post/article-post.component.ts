@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./article-post.component.css']
 })
 export class ArticlePostComponent implements OnInit {
-
+  editorContent = '';
   constructor() { }
 
   ngOnInit() {

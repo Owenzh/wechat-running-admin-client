@@ -24,6 +24,7 @@
             ],
             "styles": [
               "src/vender/css/amazeui.min.css",
+              "src/vender/css/quill.snow.css",
               "src/styles.css"
             ],
             "scripts": [
