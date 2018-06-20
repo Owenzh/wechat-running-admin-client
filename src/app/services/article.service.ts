@@ -15,7 +15,7 @@ export class ArticleService {
     const paramsObj = {
       title: article.article_title,
       category: article.article_type,
-      author: 'test',
+      author: article.article_author,
       content: article.article_content
     };
     return this.$http.post('/api/article_post', { params: paramsObj });

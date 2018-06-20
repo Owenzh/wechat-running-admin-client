@@ -13,17 +13,18 @@ export class ArticlePostComponent implements OnInit {
   ngOnInit() {
     this.articleForm = new FormGroup({
       article_title: new FormControl('', [Validators.required]),
+      article_author: new FormControl('', [Validators.required]),
       article_type: new FormControl('basic', [Validators.required]),
       article_content: new FormControl('文章内容', [Validators.required])
     });
   }
   get article_title() { return this.articleForm.get('article_title'); }
+  get article_author() { return this.articleForm.get('article_author'); }
   onSubmit() {
-    // console.log(this.article_title);
-    // console.log(this.articleForm.value);
     const articleObj: IArticle = this.articleForm.value;
     this.articleService.createArticle(articleObj).subscribe(res => {
       console.log(res);
+      this.articleForm.reset();
     });
   }
 }

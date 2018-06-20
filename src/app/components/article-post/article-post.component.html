@@ -10,6 +10,14 @@
       </div>
     </div>
     <div class="am-form-group">
+      <label>作者</label>
+      <input type="text" formControlName="article_author" placeholder="输入作者" required>
+      <div *ngIf="article_author.dirty && article_author.invalid" class="frmerr">
+        作者必填
+      </div>
+    </div>
+    
+    <div class="am-form-group">
       <label>文章类型</label>
       <select formControlName="article_type">
         <option value="basic">跑步入门</option>
