@@ -1,7 +1,30 @@
-<p>
-  ngx-quill works!
-</p>
-{{editorContent}}
-<p>
-    <quill-editor [(ngModel)]="editorContent"> </quill-editor>
-</p>
+<form novalidate [formGroup]="articleForm" class="am-form uiform" (ngSubmit)="onSubmit()">
+  <fieldset>
+    <legend>文章详情</legend>
+
+    <div class="am-form-group">
+      <label>文章标题</label>
+      <input type="text" formControlName="article_title" placeholder="输入文章标题" required>
+      <div *ngIf="article_title.dirty && article_title.invalid" class="frmerr">
+        文章标题必填
+      </div>
+    </div>
+    <div class="am-form-group">
+      <label>文章类型</label>
+      <select formControlName="article_type">
+        <option value="basic">跑步入门</option>
+        <option value="train">跑步训练</option>
+        <option value="recover">跑步恢复</option>
+      </select>
+      <span class="am-form-caret"></span>
+    </div>
+
+    <div class="am-form-group">
+      <label>文章内容</label>
+      <quill-editor formControlName="article_content"> </quill-editor>
+    </div>
+    <p>
+      <button type="submit" class="am-btn am-btn-default" [disabled]="articleForm.invalid">提交</button>
+    </p>
+  </fieldset>
+</form>
