@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-
+import { ArticleService } from '../../services/article.service';
+import { IArticle } from '../../interfaces/IArticle';
 @Component({
   selector: 'app-article-post',
   templateUrl: './article-post.component.html',
@@ -8,7 +9,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class ArticlePostComponent implements OnInit {
   articleForm: FormGroup;
-  constructor() { }
+  constructor(private articleService: ArticleService) { }
   ngOnInit() {
     this.articleForm = new FormGroup({
       article_title: new FormControl('', [Validators.required]),
@@ -18,7 +19,11 @@ export class ArticlePostComponent implements OnInit {
   }
   get article_title() { return this.articleForm.get('article_title'); }
   onSubmit() {
-    console.log(this.article_title);
-    console.log(this.articleForm.value);
+    // console.log(this.article_title);
+    // console.log(this.articleForm.value);
+    const articleObj: IArticle = this.articleForm.value;
+    this.articleService.createArticle(articleObj).subscribe(res => {
+      console.log(res);
+    });
   }
 }
