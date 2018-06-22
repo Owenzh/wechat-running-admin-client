@@ -6,7 +6,6 @@
       <th>作者</th>
       <th>类别</th>
       <th>创建时间</th>
-      <th>预览</th>
     </tr>
   </thead>
   <tbody>
@@ -20,7 +19,7 @@
           </label>
         </div>
       </td>
-      <td>{{item.title}}</td>
+      <td><a (click)="goToArticleDetail(item)">{{item.title}}</a></td>
       <td>{{item.author}}</td>
       <td>{{item.category}}</td>
       <td>{{item.creatts|date:'yyyy-MM-dd HH:mm:ss'}}</td>

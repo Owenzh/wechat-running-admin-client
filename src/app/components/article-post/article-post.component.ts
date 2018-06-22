@@ -1,20 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ArticleService } from '../../services/article.service';
+import { MessageService } from '../../services/message.service';
 import { IVArticle } from '../../interfaces/IArticle';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-article-post',
   templateUrl: './article-post.component.html',
   styleUrls: ['./article-post.component.css']
 })
-export class ArticlePostComponent implements OnInit {
+export class ArticlePostComponent implements OnInit, AfterViewInit, OnDestroy {
   articleForm: FormGroup;
   alertMsg = true;
   successMsg = true;
   failMsg = true;
   errMsg = true;
   errTxt = '';
-  constructor(private articleService: ArticleService) { }
+  public subscription: Subscription;
+  constructor(private articleService: ArticleService, private message: MessageService) { }
   ngOnInit() {
     this.articleForm = new FormGroup({
       article_title: new FormControl('', [Validators.required]),
@@ -54,5 +57,16 @@ export class ArticlePostComponent implements OnInit {
       this.failMsg = true;
       this.errMsg = true;
     }, time || 1500);
+  }
+
+  ngAfterViewInit(): void {
+    this.subscription = this.message.getMessage().subscribe(msg => {
+      // 根据msg，来处理你的业务逻辑。
+      console.log('----------SASA----');
+      console.log(msg);
+    });
+  }
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }
