@@ -1,3 +1,29 @@
-<p>
-  article-list works!
-</p>
+<table class="am-table am-table-striped am-table-hover">
+  <thead>
+    <tr>
+      <th></th>
+      <th>标题</th>
+      <th>作者</th>
+      <th>类别</th>
+      <th>创建时间</th>
+      <th>预览</th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- 'id','title','author','category','content','creatts' -->
+    <tr *ngFor="let item of article_list">
+      <td>
+        <!-- {{item.id}} -->
+        <div class="am-checkbox">
+          <label>
+            <input type="checkbox" value="{{item.id}}">
+          </label>
+        </div>
+      </td>
+      <td>{{item.title}}</td>
+      <td>{{item.author}}</td>
+      <td>{{item.category}}</td>
+      <td>{{item.creatts|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+    </tr>
+  </tbody>
+</table>

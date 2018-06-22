@@ -8,8 +8,8 @@ import { HttpClient } from '@angular/common/http';
 export class AppComponent {
   title = 'app';
   constructor(private $http: HttpClient) {
-    this.$http.get('/api/article').subscribe(data => {
-      console.log(data);
-    });
+    // this.$http.get('/api/article_list').subscribe(data => {
+    //   console.log(data);
+    // });
   }
 }
