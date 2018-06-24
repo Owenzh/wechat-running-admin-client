@@ -28,6 +28,8 @@ export class ArticlePostComponent implements OnInit, AfterViewInit, OnDestroy {
   }
   get article_title() { return this.articleForm.get('article_title'); }
   get article_author() { return this.articleForm.get('article_author'); }
+  get article_type() { return this.articleForm.get('article_type'); }
+  get article_content() { return this.articleForm.get('article_content'); }
   onSubmit() {
     const articleObj: IVArticle = this.articleForm.value;
     this.articleService.createArticle(articleObj).then(res => {
@@ -60,13 +62,26 @@ export class ArticlePostComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
+    console.log('ngAfterViewInit---');
+
     this.subscription = this.message.getMessage().subscribe(msg => {
       // 根据msg，来处理你的业务逻辑。
       console.log('----------SASA----');
-      console.log(msg);
+      console.log(this.articleForm.value);
+      let frm = msg.info;
+      this.articleForm.setValue(
+        {
+          article_title: frm.title,
+          article_author: frm.author,
+          article_type: frm.category,
+          article_content: frm.content
+        },
+        { onlySelf: false, emitEvent: true });
+      this.subscription.unsubscribe();
+      console.log(this.articleForm.value);
     });
   }
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    // this.subscription.unsubscribe();
   }
 }

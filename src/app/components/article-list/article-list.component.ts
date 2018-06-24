@@ -26,7 +26,7 @@ export class ArticleListComponent implements OnInit {
   }
   goToArticleDetail(article_item) {
     // console.log(article_item);
-    this.message.sendMessage(article_item);
     this.router.navigate(['/article_post']);
+    this.message.sendMessage(article_item);
   }
 }

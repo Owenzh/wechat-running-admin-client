@@ -1,14 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-// @Injectable({
-//   providedIn: 'root'
-// })
-// export class MessageService {
-
-//   constructor() { }
-// }
-
-
 
 // 消息中专服务
 // @Injectable()
@@ -26,9 +17,9 @@ export class MessageService {
    *        4-你的信息
    *        5-你的信息
    */
-  sendMessage(type: number) {
-    console.log('TAG' + '---------->>>' + type);
-    this.subject.next({ type: type });
+  sendMessage(msg: any) {
+    console.log(msg);
+    this.subject.next({ info: msg });
   }
   /**
   * 清理消息
