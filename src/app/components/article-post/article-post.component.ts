@@ -17,6 +17,11 @@ export class ArticlePostComponent implements OnInit, AfterViewInit, OnDestroy {
   errMsg = true;
   errTxt = '';
   public subscription: Subscription;
+  isEditModel = false;
+  submitTxt = '创建文章';
+  submitOKTxt = '创建文章成功';
+  submitBadTxt = '创建文章失败';
+  article_id = null;
   constructor(private articleService: ArticleService, private message: MessageService) { }
   ngOnInit() {
     this.articleForm = new FormGroup({
@@ -30,27 +35,57 @@ export class ArticlePostComponent implements OnInit, AfterViewInit, OnDestroy {
   get article_author() { return this.articleForm.get('article_author'); }
   get article_type() { return this.articleForm.get('article_type'); }
   get article_content() { return this.articleForm.get('article_content'); }
+  fillArticle(frm) {
+    this.articleForm.setValue(
+      {
+        article_title: frm.title,
+        article_author: frm.author,
+        article_type: frm.category,
+        article_content: frm.content
+      });
+  }
   onSubmit() {
     const articleObj: IVArticle = this.articleForm.value;
-    this.articleService.createArticle(articleObj).then(res => {
-      // console.log(res);
-      this.alertMsg = false;
-      if (res.code === 0) {
-        this.successMsg = false;
-        this.failMsg = true;
-      } else {
-        this.failMsg = false;
-        this.successMsg = true;
-      }
-      this.articleForm.reset();
-      this.cleanMsg();
-    })
-      .catch(err => {
+    if (!this.isEditModel) {
+      this.articleService.createArticle(articleObj).then(res => {
         this.alertMsg = false;
-        this.errMsg = false;
-        this.errTxt = err.message;
-        this.cleanMsg(5000);
-      });
+        if (res.code === 0) {
+          this.successMsg = false;
+          this.failMsg = true;
+        } else {
+          this.failMsg = false;
+          this.successMsg = true;
+        }
+        this.articleForm.reset();
+        this.cleanMsg();
+      })
+        .catch(err => {
+          this.alertMsg = false;
+          this.errMsg = false;
+          this.errTxt = err.message;
+          this.cleanMsg(5000);
+        });
+    } else {
+      articleObj.id = this.article_id;
+      this.articleService.editArticle(articleObj).then(res => {
+        this.alertMsg = false;
+        if (res.code === 0) {
+          this.successMsg = false;
+          this.failMsg = true;
+        } else {
+          this.failMsg = false;
+          this.successMsg = true;
+        }
+        this.articleForm.reset();
+        this.cleanMsg();
+      })
+        .catch(err => {
+          this.alertMsg = false;
+          this.errMsg = false;
+          this.errTxt = err.message;
+          this.cleanMsg(5000);
+        });
+    }
   }
   cleanMsg(time?: number) {
     setTimeout(() => {
@@ -62,26 +97,18 @@ export class ArticlePostComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    console.log('ngAfterViewInit---');
-
     this.subscription = this.message.getMessage().subscribe(msg => {
-      // 根据msg，来处理你的业务逻辑。
-      console.log('----------SASA----');
-      console.log(this.articleForm.value);
-      let frm = msg.info;
-      this.articleForm.setValue(
-        {
-          article_title: frm.title,
-          article_author: frm.author,
-          article_type: frm.category,
-          article_content: frm.content
-        },
-        { onlySelf: false, emitEvent: true });
-      this.subscription.unsubscribe();
-      console.log(this.articleForm.value);
+      const frm = msg.info;
+      console.log(frm, 'PostComponent');
+      this.fillArticle(frm);
+      this.article_id = frm.id;
+      this.isEditModel = true;
+      this.submitTxt = '编辑保存';
+      this.submitOKTxt = '编辑文章成功';
+      this.submitBadTxt = '编辑文章失败';
     });
   }
   ngOnDestroy(): void {
-    // this.subscription.unsubscribe();
+    this.subscription.unsubscribe();
   }
 }

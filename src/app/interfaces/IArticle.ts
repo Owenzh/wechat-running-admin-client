@@ -1,4 +1,5 @@
 export interface IVArticle {
+    id?: string;
     article_title: string;
     article_author: string;
     article_type: string;

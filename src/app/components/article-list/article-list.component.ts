@@ -18,15 +18,14 @@ export class ArticleListComponent implements OnInit {
   getArticleList() {
     this.articleService.getAllArticleList().then(res => {
       this.article_list = res.data.res;
-      console.log(this.article_list);
     })
       .catch(err => {
         console.log(err.message);
       });
   }
   goToArticleDetail(article_item) {
-    // console.log(article_item);
     this.router.navigate(['/article_post']);
+    console.log(article_item, 'ListComponent');
     this.message.sendMessage(article_item);
   }
 }

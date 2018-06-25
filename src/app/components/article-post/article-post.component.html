@@ -32,16 +32,16 @@
       <quill-editor formControlName="article_content" placeholder="编辑文章内容"> </quill-editor>
     </div>
     <p>
-      <button type="submit" class="am-btn am-btn-default" [disabled]="articleForm.invalid">提交</button>
+      <button type="submit" class="am-btn am-btn-default" [disabled]="articleForm.invalid">{{submitTxt}}</button>
     </p>
     <div [hidden]="alertMsg">
       <div [hidden]="successMsg" class="am-alert am-alert-success" data-am-alert>
         <button type="button" class="am-close">&times;</button>
-        <p>创建文章成功</p>
+        <p>{{submitOKTxt}}</p>
       </div>
       <div [hidden]="failMsg" class="am-alert am-alert-warning" data-am-alert>
         <button type="button" class="am-close">&times;</button>
-        <p>创建文章失败</p>
+        <p>{{submitBadTxt}}</p>
       </div>
       <div [hidden]="errMsg" class="am-alert am-alert-danger" data-am-alert>
         <button type="button" class="am-close">&times;</button>
