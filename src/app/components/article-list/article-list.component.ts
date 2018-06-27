@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   templateUrl: './article-list.component.html',
   styleUrls: ['./article-list.component.css']
 })
-export class ArticleListComponent implements OnInit {
+export class ArticleListComponent implements OnInit {  
   @Output()
   private dataLoad: EventEmitter<any> = new EventEmitter();
   constructor(private articleService: ArticleService, private message: MessageService, private router: Router) { }

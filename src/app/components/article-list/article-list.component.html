@@ -8,7 +8,7 @@
       <th>创建时间</th>
     </tr>
   </thead>
-  <tbody>
+  <tbody #tby>
     <!-- 'id','title','author','category','content','creatts' -->
     <tr *ngFor="let item of article_list">
       <td>
@@ -26,4 +26,4 @@
     </tr>
   </tbody>
 </table>
-<app-pagger [data]="article_list" ></app-pagger>
+<app-pagger [dataChange]="dataLoad" [target]="tby"></app-pagger>
