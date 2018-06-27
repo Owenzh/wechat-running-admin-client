@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { ArticleService } from '../../services/article.service';
 import { MessageService } from '../../services/message.service';
 import { IArticle } from '../../interfaces/IArticle';
@@ -9,7 +9,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./article-list.component.css']
 })
 export class ArticleListComponent implements OnInit {
-
+  @Output()
+  private dataLoad: EventEmitter<any> = new EventEmitter();
   constructor(private articleService: ArticleService, private message: MessageService, private router: Router) { }
   article_list: IArticle = null;
   ngOnInit() {
@@ -18,6 +19,7 @@ export class ArticleListComponent implements OnInit {
   getArticleList() {
     this.articleService.getAllArticleList().then(res => {
       this.article_list = res.data.res;
+      this.dataLoad.emit(this.article_list);
     })
       .catch(err => {
         console.log(err.message);

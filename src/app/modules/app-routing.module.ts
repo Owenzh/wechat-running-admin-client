@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ArticlePostComponent } from '../components/article-post/article-post.component';
 import { ArticleListComponent } from '../components/article-list/article-list.component';
 import { ArticleReportComponent } from '../components/article-report/article-report.component';
+import { PaggerComponent } from '../components/pagger/pagger.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { QuillModule } from 'ngx-quill';
 
@@ -16,7 +17,8 @@ const routes: Routes = [
   declarations: [
     ArticlePostComponent,
     ArticleListComponent,
-    ArticleReportComponent
+    ArticleReportComponent,
+    PaggerComponent
   ],
   imports: [CommonModule, RouterModule.forRoot(routes), QuillModule, FormsModule, ReactiveFormsModule],
   exports: [RouterModule]
