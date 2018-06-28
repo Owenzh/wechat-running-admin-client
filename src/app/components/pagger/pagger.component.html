@@ -1,4 +1,29 @@
-<p>
-  pagger works!{{totals}}
-</p>
-<p>{{pageNums}}</p>
+<div class="pagger">
+  <ul class="am-pagination am-pagination-right">
+    <li>每页&nbsp;</li>
+    <li>
+      <select #pc class="page_select" (change)="changePageCount(pc.value)" value="{{pageCount}}">
+        <option>5</option>
+        <option>10</option>
+        <option>20</option>
+        <option>50</option>
+        <option>100</option>
+      </select>
+    </li>
+    <li>&nbsp;条&nbsp;</li>
+    <li>
+      <a href="#" (click)="prePage($event)">&laquo; 上一页</a>
+    </li>
+    <li>
+      <a href="#" (click)="nxtPage($event)">下一页 &raquo;</a>
+    </li>
+    <li>第&nbsp;{{currentPage}}&nbsp;页&nbsp;|&nbsp;&nbsp;共&nbsp;{{pageNums}}&nbsp;页</li>
+    <li>&nbsp;共&nbsp;{{totals}}&nbsp;条记录</li>
+    <li>&nbsp;跳至&nbsp;</li>
+    <li>
+      <select #ps class="page_select" (change)="paging(ps.value)">
+        <option *ngFor="let p of pageNumList">{{p}}</option>
+      </select>
+    </li>
+  </ul>
+</div>

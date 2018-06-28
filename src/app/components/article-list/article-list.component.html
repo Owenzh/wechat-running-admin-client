@@ -1,29 +1,36 @@
-<table class="am-table am-table-striped am-table-hover can-scroll">
-  <thead>
-    <tr>
-      <th></th>
-      <th>标题</th>
-      <th>作者</th>
-      <th>类别</th>
-      <th>创建时间</th>
-    </tr>
-  </thead>
-  <tbody #tby>
-    <!-- 'id','title','author','category','content','creatts' -->
-    <tr *ngFor="let item of article_list">
-      <td>
-        <!-- {{item.id}} -->
-        <div class="am-checkbox">
-          <label>
-            <input type="checkbox" value="{{item.id}}">
-          </label>
-        </div>
-      </td>
-      <td><a (click)="goToArticleDetail(item)">{{item.title}}</a></td>
-      <td>{{item.author}}</td>
-      <td>{{item.category}}</td>
-      <td>{{item.creatts|date:'yyyy-MM-dd HH:mm:ss'}}</td>
-    </tr>
-  </tbody>
-</table>
-<app-pagger [dataChange]="dataLoad" [target]="tby"></app-pagger>
+<div [hidden]="hiddenAticleList">
+  <table class="am-table am-table-striped am-table-hover can-scroll">
+    <thead>
+      <tr>
+        <th></th>
+        <th>标题</th>
+        <th>作者</th>
+        <th>类别</th>
+        <th>创建时间</th>
+      </tr>
+    </thead>
+    <tbody #tby>
+      <!-- 'id','title','author','category','content','creatts' -->
+      <tr *ngFor="let item of article_list">
+        <td>
+          <!-- {{item.id}} -->
+          <div class="am-checkbox">
+            <label>
+              <input type="checkbox" value="{{item.id}}">
+            </label>
+          </div>
+        </td>
+        <td>
+          <a (click)="goToArticleDetail(item)">{{item.title}}</a>
+        </td>
+        <td>{{item.author}}</td>
+        <td>{{item.category}}</td>
+        <td>{{item.creatts|date:'yyyy-MM-dd HH:mm:ss'}}</td>
+      </tr>
+    </tbody>
+  </table>
+  <app-pagger [dataChange]="dataLoad" [target]="tby"></app-pagger>
+</div>
+<div [hidden]="!hiddenAticleList">
+  {{NoDataFound}}
+</div>

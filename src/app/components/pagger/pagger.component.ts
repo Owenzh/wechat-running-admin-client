@@ -11,27 +11,63 @@ export class PaggerComponent implements OnInit {
   @Input()
   private dataChange: EventEmitter<any>;
 
-  private pageCount: number = 3;
-  private currentPage: number = 1;
-  private totals: number = 0;
-  private pageNums: number = 1;
+  private pageCount = 5;
+  private currentPage = 1;
+  private totals = 0;
+  private pageNums = 1;
+  private pageNumList = [];
+  private rowList: any;
   constructor() { }
 
   ngOnInit() {
     this.dataChange.subscribe(data => {
-      this.totals = data.length;
       setTimeout(() => {
-        this.initPaging();
+          this.rowList = this.target.getElementsByTagName('tr');
+          this.totals = this.rowList.length;
+          this.initPaging();
       }, 0);
     });
   }
   initPaging() {
-    let trList = this.target.getElementsByTagName('tr');
-    let len = trList.length;
-    this.pageNums = Math.ceil(len / this.pageCount);
-    // for (let i = 0; i < len; i++) {
-    //   if (i > 5)
-    //     trList.item(i).style.display = 'none';
-    // }
+    this.pageNums = Math.ceil(this.totals / this.pageCount);
+    for (let p = 1; p <= this.pageNums; p++) {
+      this.pageNumList.push(p);
+    }
+    this.paging(this.currentPage);
+  }
+  paging(display_page_number: number) {
+    display_page_number = Number(display_page_number);
+    const startIdx = Number(this.pageCount * (display_page_number - 1));
+    const endIdx = startIdx + this.pageCount * 1;
+    console.log('index range =>' + startIdx + ' to ' + endIdx);
+    for (let i = 0; i < this.totals; i++) {
+      if (i >= startIdx && i < endIdx) {
+        this.rowList.item(i).style.display = '';
+      } else {
+        this.rowList.item(i).style.display = 'none';
+      }
+    }
+    this.currentPage = display_page_number;
+  }
+  prePage(event: Event) {
+    event.preventDefault();
+    if (this.currentPage === 1) {
+      return false;
+    }
+    this.paging(this.currentPage - 1);
+  }
+  nxtPage(event: Event) {
+    event.preventDefault();
+    if (this.currentPage === this.pageNums) {
+      return false;
+    }
+    this.paging(this.currentPage + 1);
+  }
+
+  changePageCount(newPageCount: number) {
+    this.currentPage = 1;
+    this.pageCount = newPageCount * 1;
+    this.pageNumList = [];
+    this.initPaging();
   }
 }

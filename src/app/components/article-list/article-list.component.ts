@@ -8,18 +8,25 @@ import { Router } from '@angular/router';
   templateUrl: './article-list.component.html',
   styleUrls: ['./article-list.component.css']
 })
-export class ArticleListComponent implements OnInit {  
+export class ArticleListComponent implements OnInit {
   @Output()
   private dataLoad: EventEmitter<any> = new EventEmitter();
   constructor(private articleService: ArticleService, private message: MessageService, private router: Router) { }
   article_list: IArticle = null;
+  hiddenAticleList = true;
+  NoDataFound = '';
   ngOnInit() {
     this.getArticleList();
   }
   getArticleList() {
     this.articleService.getAllArticleList().then(res => {
-      this.article_list = res.data.res;
-      this.dataLoad.emit(this.article_list);
+      if (res.data.res && res.data.res.length > 0) {
+        this.hiddenAticleList = false;
+        this.article_list = res.data.res;
+        this.dataLoad.emit(this.article_list);
+      } else {
+        this.NoDataFound = '未找到数据';
+      }
     })
       .catch(err => {
         console.log(err.message);
