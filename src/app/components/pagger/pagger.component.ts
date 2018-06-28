@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, ElementRef } from '@angular/core';
 
 @Component({
   selector: 'app-pagger',
@@ -17,14 +17,15 @@ export class PaggerComponent implements OnInit {
   private pageNums = 1;
   private pageNumList = [];
   private rowList: any;
-  constructor() { }
+  constructor(private elementRel: ElementRef) { }
 
   ngOnInit() {
     this.dataChange.subscribe(data => {
       setTimeout(() => {
-          this.rowList = this.target.getElementsByTagName('tr');
-          this.totals = this.rowList.length;
-          this.initPaging();
+        console.log(this.elementRel.nativeElement.querySelector('#ps'));
+        this.rowList = this.target.getElementsByTagName('tr');
+        this.totals = this.rowList.length;
+        this.initPaging();
       }, 0);
     });
   }
