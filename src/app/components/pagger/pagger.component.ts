@@ -22,7 +22,6 @@ export class PaggerComponent implements OnInit {
   ngOnInit() {
     this.dataChange.subscribe(data => {
       setTimeout(() => {
-        console.log(this.elementRel.nativeElement.querySelector('#ps'));
         this.rowList = this.target.getElementsByTagName('tr');
         this.totals = this.rowList.length;
         this.initPaging();
@@ -40,7 +39,7 @@ export class PaggerComponent implements OnInit {
     display_page_number = Number(display_page_number);
     const startIdx = Number(this.pageCount * (display_page_number - 1));
     const endIdx = startIdx + this.pageCount * 1;
-    console.log('index range =>' + startIdx + ' to ' + endIdx);
+    // console.log('index range =>' + startIdx + ' to ' + endIdx);
     for (let i = 0; i < this.totals; i++) {
       if (i >= startIdx && i < endIdx) {
         this.rowList.item(i).style.display = '';
@@ -49,6 +48,7 @@ export class PaggerComponent implements OnInit {
       }
     }
     this.currentPage = display_page_number;
+    this.elementRel.nativeElement.querySelector('select.ps').value = this.currentPage;
   }
   prePage(event: Event) {
     event.preventDefault();

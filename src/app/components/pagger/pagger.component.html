@@ -21,7 +21,7 @@
     <li>&nbsp;共&nbsp;{{totals}}&nbsp;条记录</li>
     <li>&nbsp;跳至&nbsp;</li>
     <li>
-      <select #ps class="page_select" (change)="paging(ps.value)">
+      <select #ps class="page_select ps" (change)="paging(ps.value)">
         <option *ngFor="let p of pageNumList">{{p}}</option>
       </select>
     </li>
