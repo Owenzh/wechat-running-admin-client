@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy, ElementRef } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ArticleService } from '../../services/article.service';
 import { MessageService } from '../../services/message.service';
@@ -22,7 +22,7 @@ export class ArticlePostComponent implements OnInit, AfterViewInit, OnDestroy {
   submitOKTxt = '创建文章成功';
   submitBadTxt = '创建文章失败';
   article_id = null;
-  constructor(private articleService: ArticleService, private message: MessageService) { }
+  constructor(private articleService: ArticleService, private message: MessageService, private element: ElementRef) { }
   ngOnInit() {
     this.articleForm = new FormGroup({
       article_title: new FormControl('', [Validators.required]),
@@ -45,6 +45,7 @@ export class ArticlePostComponent implements OnInit, AfterViewInit, OnDestroy {
       });
   }
   onSubmit() {
+    this.calculatorCSS();
     const articleObj: IVArticle = this.articleForm.value;
     if (!this.isEditModel) {
       this.articleService.createArticle(articleObj).then(res => {
@@ -107,6 +108,24 @@ export class ArticlePostComponent implements OnInit, AfterViewInit, OnDestroy {
       this.submitOKTxt = '编辑文章成功';
       this.submitBadTxt = '编辑文章失败';
     });
+  }
+  calculatorCSS() {
+    const children = this.element.nativeElement.querySelector('.ql-editor').children;
+    const len = children.length;
+    for (let i = 0; i < len; i++) {
+      const dom = children[i];
+      dom.style = this.returnAllStyles(dom);
+    }
+  }
+  returnAllStyles(elem) {
+    const styleString = [];
+    const cs = window.getComputedStyle(elem, null);
+    const len = cs.length;
+    for (let i = 0; i < len; i++) {
+      const style = cs[i];
+      styleString.push(style + ':' + cs.getPropertyValue(style) + ';');
+    }
+    return styleString.join('');
   }
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
