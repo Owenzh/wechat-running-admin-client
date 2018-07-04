@@ -45,7 +45,6 @@ export class ArticlePostComponent implements OnInit, AfterViewInit, OnDestroy {
       });
   }
   onSubmit() {
-    this.calculatorCSS();
     const articleObj: IVArticle = this.articleForm.value;
     if (!this.isEditModel) {
       this.articleService.createArticle(articleObj).then(res => {
@@ -109,12 +108,18 @@ export class ArticlePostComponent implements OnInit, AfterViewInit, OnDestroy {
       this.submitBadTxt = '编辑文章失败';
     });
   }
+  /**
+   * Deprecated
+   *
+   * @memberof ArticlePostComponent
+   */
   calculatorCSS() {
     const children = this.element.nativeElement.querySelector('.ql-editor').children;
     const len = children.length;
     for (let i = 0; i < len; i++) {
       const dom = children[i];
-      dom.style = this.returnAllStyles(dom);
+      const styleStr = this.returnAllStyles(dom);
+      dom.style = styleStr;
     }
   }
   returnAllStyles(elem) {
